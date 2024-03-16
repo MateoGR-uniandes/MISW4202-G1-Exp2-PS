@@ -10,8 +10,12 @@ class publisher(Resource):
         messagesToSend = request.json
         print('mensaje a transmitir: ', messagesToSend)
 
+        print('oe; ' , type(messagesToSend), messagesToSend)
         encryptMessage = encrypter.encrypt(messagesToSend)
-        SendMessage(encryptMessage)
+
+        print('oe; ' , type(encryptMessage), encryptMessage)
+
+        SendMessage(request.json)
         print("Mensaje enviado")
 
 
@@ -19,6 +23,7 @@ def SendMessage(encryptMessage):
     # URL of RabbitMQ
     url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
     # We generate a random number of requests to make
+
 
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
