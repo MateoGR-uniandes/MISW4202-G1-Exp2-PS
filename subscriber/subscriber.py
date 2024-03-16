@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, abort
-import pika, os, random
+import pika, os, random, json
 from flask_restful import Resource
 from flask import request
 from subscriber import decrypter
@@ -19,7 +19,7 @@ def LeerCola():
 
     def callback(ch, method, properties, body):
         print('mensaje recibido -> ', body)
-        a =  decrypter.decrypt(body)
+        a =  decrypter.decrypt(json.loads(body))
         print('mensaje desencriptado ->', a)
 
     channel.basic_consume("arqsub", callback, auto_ack=True)
