@@ -6,8 +6,7 @@ from subscriber import decrypter
 
 class subscriber(Resource):
     def post(self):
-        messagesToSend = request.json
-        print('lo que llego es: ', messagesToSend)
+        print("Comenzando a escuchar")
         LeerCola()
 
 def LeerCola():

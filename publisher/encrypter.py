@@ -1,16 +1,15 @@
 from jwcrypto import jwk, jwe, jws
 from jwcrypto.common import json_encode, json_decode
 import codecs
-import json
-import datetime
+import json, os, datetime
 
 path = "Certs/"
 def encrypt(data):
     try:
         print('data: ', data)
         payload = json.dumps(data)
-
-        llave = "name.crt"
+        appName = os.environ.get("PEER_NAME", "ARQUITECTURA")
+        llave = appName+".crt"
 
         pub_pem = open(path + llave, "rb").read()
         priv_pem = open(path + "keyPrivate.key", "rb").read()

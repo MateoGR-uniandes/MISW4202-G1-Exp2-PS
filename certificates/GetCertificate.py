@@ -4,6 +4,7 @@ from flask import request
 import json 
 import base64
 import time
+import os
 
 class Certificate(Resource):
     def post(self):
@@ -36,13 +37,15 @@ def getCertificate(name):
 
 def SendCertificate():
     print('entro')
-    url = 'http://127.0.0.1:5000/registrar_certificado'
+    auxUrl = os.environ.get("PEER_SERVICE", "")
+
+    url = auxUrl+'/registrar_certificado'
     cert = open("./Certs/keyPublic.crt", "rb").read()
 
     b64 = base64.b64encode(cert)
     key = b64.decode('ascii')
-
-    myobj = {'api': 'name', 'public_cert': key}
+    appName = os.environ.get("APP_NAME", "ARQUITECTURA")
+    myobj = {'api': appName, 'public_cert': key}
 
     json_object = requests.post(url, json = myobj)
 

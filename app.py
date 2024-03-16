@@ -4,7 +4,7 @@ from flask_restful import Api
 from certificates import GetCertificate
 from publisher import publisher
 from subscriber import subscriber
-
+import os
 def create_flask_app():
     app = Flask(__name__)
 
@@ -12,7 +12,10 @@ def create_flask_app():
     app_context.push()
     add_urls(app)
     CORS(app)
-    GetCertificate.getCertificate('mgr1')
+
+    appName = os.environ.get("APP_NAME", "ARQUITECTURA")
+
+    GetCertificate.getCertificate(appName)
 
     return app
 
