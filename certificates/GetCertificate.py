@@ -44,7 +44,7 @@ def SendCertificate():
     print('enviando certificado')
     auxUrl = os.environ.get("PEER_SERVICE", "")
 
-    url = auxUrl+'/registrar_certificado'
+    url = auxUrl+'/registrar_servicio'
     print("Destino: ", url)
     cert = open("./Certs/keyPublic.crt", "rb").read()
 
