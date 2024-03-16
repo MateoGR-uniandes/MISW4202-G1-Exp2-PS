@@ -15,7 +15,7 @@ class Certificate(Resource):
         fh.write(base64.b64decode(certificate["public_cert"]))
         fh.close()
 
-        print("Servicio" + certificate["api"] + "registrado")
+        print("Servicio " + certificate["api"] + " registrado")
 
     def put(self):
         print("Registrando servicio con receptor")

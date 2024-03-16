@@ -21,10 +21,6 @@ def SendMessage(encryptMessage):
     url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
     # We generate a random number of requests to make
 
-    a = json.dumps(encryptMessage)
-
-    print('a: ', a, type(a))
-
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel() # start a channel
@@ -32,7 +28,7 @@ def SendMessage(encryptMessage):
         
     channel.basic_publish(exchange='',
                         routing_key='arqsub',
-                        body=a)
+                        body=json.dumps(encryptMessage))
 
     connection.close()
     # print(encryptMessage)
