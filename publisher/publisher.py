@@ -8,13 +8,11 @@ from publisher import encrypter
 class publisher(Resource):
     def post(self):
         messagesToSend = request.json
-        print('lo que llego es: ', messagesToSend)
-        
-        # jsonMessage = json.loads(messagesToSend)
-        # print('lo que salio es: ', jsonMessage)
+        print('mensaje a transmitir: ', messagesToSend)
 
         encryptMessage = encrypter.encrypt(messagesToSend)
         SendMessage(encryptMessage)
+        print("Mensaje enviado")
 
 
 def SendMessage(encryptMessage):

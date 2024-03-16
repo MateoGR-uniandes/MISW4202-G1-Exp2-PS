@@ -18,9 +18,9 @@ def LeerCola():
     channel.queue_declare(queue="arqsub")
 
     def callback(ch, method, properties, body):
-        print('llego en body -> ', body)
+        print('mensaje recibido -> ', body)
         a =  decrypter.decrypt(body)
-        print('message received ->', a)
+        print('mensaje desencriptado ->', a)
 
     channel.basic_consume("arqsub", callback, auto_ack=True)
 

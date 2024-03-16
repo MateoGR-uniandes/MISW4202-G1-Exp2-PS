@@ -14,16 +14,16 @@ def create_flask_app():
     CORS(app)
 
     appName = os.environ.get("APP_NAME", "ARQUITECTURA")
-
+    print("iniciando aplicacion -> ", appName)
     GetCertificate.getCertificate(appName)
-
+    print("inicializacion completa")
     return app
 
 def add_urls(app):
     api = Api(app)
-    api.add_resource(publisher.publisher, '/inicio')
-    api.add_resource(subscriber.subscriber, '/test')
-    api.add_resource(GetCertificate.Certificate, '/registrar_certificado', '/enviar_certificado')
+    api.add_resource(publisher.publisher, '/enviar_mensaje')
+    api.add_resource(subscriber.subscriber, '/escuchar')
+    api.add_resource(GetCertificate.Certificate, '/registrar_servicio', '/enviar_certificado')
 
 app = create_flask_app()
 

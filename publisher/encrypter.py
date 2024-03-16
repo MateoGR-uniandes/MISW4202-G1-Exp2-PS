@@ -20,7 +20,7 @@ def encrypt(data):
         private_key = jwk.JWK()
         private_key.import_from_pem(priv_pem)
 
-        print("SIGNING USING PRIVATE KEY..." )
+        print("Firmando con llave privada..." )
         ### SIGNING 
         jwstoken = jws.JWS(payload.encode('utf-8'))
         jwstoken.add_signature(private_key, None,
@@ -31,12 +31,10 @@ def encrypt(data):
         sig_dict.pop('header')
         sig = json.dumps(sig_dict).encode()
         
-        print('JWS:')
-        print(sig.decode('utf-8').replace(",", ",\n"))
         payload = sig
        
         ### ENCRYPTING USING PUBLIC KEY
-        print("\nENCRYPTING USING PUBLIC KEY..." )
+        print("\nEncriptando con llave publica..." )
        
         protected_header = {
             "alg": "RSA-OAEP-256",
@@ -51,8 +49,7 @@ def encrypt(data):
        
         enc = jwetoken.serialize()
        
-        print("JWE:")
-        print(enc.replace("," , ",\n"))
+        print("Mensaje encriptado: ", enc)
         print(datetime.datetime.now())
         print(">-----")
         return json.loads(enc)

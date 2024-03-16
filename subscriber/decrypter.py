@@ -21,28 +21,22 @@ def decrypt(data):
         public_key = jwk.JWK()
         public_key.import_from_pem(pub_pem)
 
-        print('JWE:')
-        print (enc.replace(",", ",\n"))
-
         ### DECRYPTING USING PRIVATE KEY PEM
-        print("\nDECRYPTING USING PRIVATE KEY..." )
+        print("\nDesencriptando con llave privada..." )
         
         jwetoken = jwe.JWE()
         jwetoken.deserialize(enc)
         jwetoken.decrypt(private_key)
         payload = jwetoken.payload
 
-        print('JWS:')
-        print (payload.decode('utf-8').replace(",", ",\n"))
-
         ### CHECKING SIGNATURE
-        print("CHECKING SIGNATURE USING PUBLIC KEY..." )
+        print("Validando firma con llave publica..." )
         jwstoken = jws.JWS()
         jwstoken.deserialize(payload)
         jwstoken.verify(public_key)
         payload = jwstoken.payload
         print(datetime.datetime.now())
-        print("VALIDATION SUCCESSFUL\n>-----" )
+        print("Validacion terminada con exito\n>-----" )
 
         return json.loads(payload)
     except FileNotFoundError as ex:
