@@ -10,12 +10,9 @@ class publisher(Resource):
         messagesToSend = request.json
         print('mensaje a transmitir: ', messagesToSend)
 
-        print('oe; ' , type(messagesToSend), messagesToSend)
         encryptMessage = encrypter.encrypt(messagesToSend)
 
-        print('oe; ' , type(encryptMessage), encryptMessage)
-
-        SendMessage(request.json)
+        SendMessage(encryptMessage)
         print("Mensaje enviado")
 
 
@@ -24,6 +21,9 @@ def SendMessage(encryptMessage):
     url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
     # We generate a random number of requests to make
 
+    a = json.dumps(encryptMessage)
+
+    print('a: ', a, type(a))
 
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
@@ -32,7 +32,7 @@ def SendMessage(encryptMessage):
         
     channel.basic_publish(exchange='',
                         routing_key='arqsub',
-                        body=encryptMessage)
+                        body=a)
 
     connection.close()
     # print(encryptMessage)
