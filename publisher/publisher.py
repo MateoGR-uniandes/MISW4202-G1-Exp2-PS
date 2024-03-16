@@ -27,7 +27,7 @@ def SendMessage(encryptMessage):
         
     channel.basic_publish(exchange='',
                         routing_key='arqsub',
-                        body=encryptMessage)
+                        body="encryptMessage")
 
     connection.close()
     # print(encryptMessage)
